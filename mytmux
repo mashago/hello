@@ -1,0 +1,35 @@
+#!/bin/bash
+
+cmd=$(which tmux) # tmux path
+session=masha   # session name
+
+if [ -z $cmd ]; then
+	echo "You need to install tmux."
+	exit 1
+fi
+
+sshcmd="ssh abc@127.0.0.1"
+
+$cmd has -t $session
+
+if [ $? == 0 ]; then
+	echo "already running session"
+	exit 1
+fi
+
+$cmd new -d -s $session
+
+$cmd neww -t $session ${sshcmd}
+$cmd neww -t $session ${sshcmd}
+$cmd neww -t $session ${sshcmd}
+$cmd neww -t $session ${sshcmd}
+$cmd neww -t $session ${sshcmd}
+
+$cmd neww -t $session ${sshcmd}
+$cmd neww -t $session ${sshcmd}
+
+$cmd selectw -t $session:1
+
+$cmd att -t $session
+
+exit
